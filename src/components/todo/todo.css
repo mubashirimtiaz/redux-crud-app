@@ -1,0 +1,40 @@
+.todo {
+  position: relative;
+}
+.todo.done ::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding: 2px;
+  background-color: var(--success);
+}
+.todo.tobedone ::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding: 2px;
+  background-color: var(--danger);
+}
+.icons {
+  opacity: 0.8;
+  cursor: pointer;
+  transform: scale(0.8);
+  transition: 0.3s ease-in-out;
+}
+.icons:hover {
+  transform: scale(0.9);
+  opacity: 1;
+}
+.todo-title {
+  cursor: pointer;
+}
+.todo.done .todo-title {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
