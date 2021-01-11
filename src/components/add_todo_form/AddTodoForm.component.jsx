@@ -10,6 +10,7 @@ const AddTodoForm = () => {
   const handleTodoSubmit = (event) => {
     event.preventDefault();
     dispatch({ type: "ADD_TODO", payload: newTodo });
+    setNewTodo("");
   };
   return (
     <form onSubmit={handleTodoSubmit} className="mb-3">
