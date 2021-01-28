@@ -1,11 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./todo.css";
 import deleteIcon from "../../assets/icons/delete.png";
 import editIcon from "../../assets/icons/edit.png";
-import { GlobalContext } from "../../contexts/Global.context";
+import {
+  Delete_Todo,
+  Update_Status,
+  // Update_Todo,
+} from "../../redux/todos/todo.actions";
+import { connect, useDispatch } from "react-redux";
+// import { GlobalContext } from "../../contexts/Global.context";
 
-const Todo = ({ id, title, completed }) => {
-  const { dispatch } = useContext(GlobalContext);
+const Todo = ({
+  id,
+  title,
+  completed,
+  UPDATE_STATUS,
+  // UPDATE_TODO,
+  DELETE_TODO,
+}) => {
+  const dispatch = useDispatch();
+  // const { dispatch } = useContext(GlobalContext);
   const [editStatus, setEditStatus] = useState(false);
   const [todoTitle, setTodoTitle] = useState(title);
 
@@ -13,10 +27,13 @@ const Todo = ({ id, title, completed }) => {
     setEditStatus(!editStatus);
   };
   const handleTodoDelete = () => {
-    dispatch({ type: "DELETE_TODO", payload: id });
+    // dispatch({ type: "DELETE_TODO", payload: id });
+    DELETE_TODO(id);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    // dispatch({ type: "UPDATE_TODO", payload: { id, title: todoTitle } });
+    // UPDATE_TODO({ id, title: todoTitle });
     dispatch({ type: "UPDATE_TODO", payload: { id, title: todoTitle } });
     setEditStatus(!editStatus);
   };
@@ -25,7 +42,8 @@ const Todo = ({ id, title, completed }) => {
     setTodoTitle(event.target.value);
   };
   const handleStatusChange = (event) => {
-    dispatch({ type: "UPDATE_STATUS", payload: { id, completed } });
+    // dispatch({ type: "UPDATE_STATUS", payload: { id, completed } });
+    UPDATE_STATUS({ id, completed });
   };
   return (
     <li
@@ -68,5 +86,9 @@ const Todo = ({ id, title, completed }) => {
     </li>
   );
 };
-
-export default Todo;
+const mapDispatchToProps = (dispatch) => ({
+  DELETE_TODO: (todo) => dispatch(Delete_Todo(todo)),
+  // UPDATE_TODO: (todo) => dispatch(Update_Todo(todo)),
+  UPDATE_STATUS: (todo) => dispatch(Update_Status(todo)),
+});
+export default connect(null, mapDispatchToProps)(Todo);

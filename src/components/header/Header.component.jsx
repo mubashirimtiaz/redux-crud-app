@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "../../contexts/Global.context";
+import React from "react";
+import { useSelector } from "react-redux";
+// import { GlobalContext } from "../../contexts/Global.context";
 
 const Header = () => {
-  const {
-    todos: { todos },
-  } = useContext(GlobalContext);
+  const todos = useSelector(({ todos: { todos } }) => todos);
   const thingsTodo = todos.filter((todo) => todo.completed === false);
   return (
     <div className="row">

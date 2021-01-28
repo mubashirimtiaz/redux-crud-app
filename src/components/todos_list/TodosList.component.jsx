@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
-import { Todo } from "../";
-import { GlobalContext } from "../../contexts/Global.context";
+import React from "react";
+import Todo from "../todo/Todo.component";
+import { connect } from "react-redux";
 
-const TodosList = () => {
-  const {
-    todos: { todos },
-  } = useContext(GlobalContext);
+const TodosList = ({ todos }) => {
   return (
     <div className="row">
       <div className="col-md-12">
@@ -18,5 +15,7 @@ const TodosList = () => {
     </div>
   );
 };
-
-export default TodosList;
+const mapStateToProps = ({ todos: { todos } }) => ({
+  todos,
+});
+export default connect(mapStateToProps)(TodosList);

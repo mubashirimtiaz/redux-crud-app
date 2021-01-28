@@ -1,15 +1,19 @@
-import React, { useState, useContext } from "react";
-import { GlobalContext } from "../../contexts/Global.context";
+import React, { useState } from "react";
+// import { GlobalContext } from "../../contexts/Global.context";
+import { useDispatch } from "react-redux";
+import { Add_Todo } from "../../redux/todos/todo.actions";
 
-const AddTodoForm = () => {
-  const { dispatch } = useContext(GlobalContext);
+const AddTodoForm = ({ ADD_TODO }) => {
+  // const { dispatch } = useContext(GlobalContext);
   const [newTodo, setNewTodo] = useState("");
+  const dispatch = useDispatch();
   const handleChange = (event) => {
     setNewTodo(event.target.value);
   };
   const handleTodoSubmit = (event) => {
     event.preventDefault();
-    dispatch({ type: "ADD_TODO", payload: newTodo });
+    // dispatch({ type: "ADD_TODO", payload: newTodo });
+    dispatch(Add_Todo(newTodo));
     setNewTodo("");
   };
   return (
@@ -28,5 +32,9 @@ const AddTodoForm = () => {
     </form>
   );
 };
+
+// const mapDispatchToProp = (dispatch) => ({
+//   ADD_TODO: (newTodo) => dispatch(Add_Todo(newTodo)),
+// });
 
 export default AddTodoForm;
